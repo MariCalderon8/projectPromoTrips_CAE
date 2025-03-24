@@ -23,7 +23,7 @@ public class Viaje {
 
     private String nombre;
 
-    private double precio;
+    private float precio;
 
     @Column(name = "dias_duracion")
     private int diasDuracion;

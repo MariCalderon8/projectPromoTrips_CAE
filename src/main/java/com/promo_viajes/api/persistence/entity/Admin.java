@@ -30,5 +30,5 @@ public class Admin {
     private String telefono;
 
     @OneToMany(mappedBy = "creadoPor")
-    private List<Promocion> promociones;
+    private List<Promocion> promocionesCreadas;
 }
