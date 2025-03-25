@@ -18,7 +18,7 @@ public interface AdminRepository {
     AdminDTO update(AdminDTO adminDTO);
 
     // Eliminar un registro
-    void delete(Long id);
+    boolean delete(Long id);
 
     // Validar si existe por ID
     boolean existsById(Long id);

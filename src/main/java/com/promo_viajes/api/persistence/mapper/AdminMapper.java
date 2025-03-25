@@ -22,5 +22,6 @@ public interface AdminMapper {
 
     //Mapeo inverso
     @InheritInverseConfiguration
+    @Mapping(target = "promocionesCreadas", ignore = true)
     Admin toEntity(AdminDTO adminDTO);
 }

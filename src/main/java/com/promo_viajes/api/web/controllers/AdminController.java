@@ -3,6 +3,7 @@ package com.promo_viajes.api.web.controllers;
 
 import com.promo_viajes.api.domain.dto.AdminDTO;
 import com.promo_viajes.api.domain.service.AdminService;
+import com.promo_viajes.api.persistence.entity.Admin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -56,4 +57,44 @@ public class AdminController {
         AdminDTO savedAdmin = adminService.save(adminDTO);
         return new ResponseEntity<>(savedAdmin, HttpStatus.CREATED);
     }
+
+    //Actualizar admin por Id
+    @Operation(summary = "Actualizar admin", description = "Actualiza los datos de un admin existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Admin actualizado exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Error al actualizar el Admin"),
+            @ApiResponse(responseCode = "404", description = "Admin no encontrado")
+    })
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AdminDTO> updateAdmin(@PathVariable Long id, @RequestBody AdminDTO adminDTO) {
+        adminDTO.setId(id);
+        AdminDTO updatedAdmin = adminService.update(adminDTO);
+        return ResponseEntity.ok(updatedAdmin);
+    }
+
+    // Eliminar Admin por ID
+    @Operation(summary = "Eliminar admin", description = "Elimina el admin correspondiente al ID proporcionado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Admin eliminado exitosamente"),
+            @ApiResponse(responseCode = "404", description = "Admin no encontrado")
+    })
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {
+        boolean deleted = adminService.delete(id);
+        if (deleted) {
+            return ResponseEntity.ok("Admin eliminado exitosamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Admin no encontrado");
+        }
+    }
+
+    // Contar el número total de administradores
+    @Operation(summary = "Contar admins", description = "Retorna el número total de administradores registrados")
+    @ApiResponse(responseCode = "200", description = "Número total de admins")
+    @GetMapping("/count")
+    public ResponseEntity<Long> countAdmins() {
+        long count = adminService.count();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
 }

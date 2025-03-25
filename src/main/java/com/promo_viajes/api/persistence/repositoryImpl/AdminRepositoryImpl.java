@@ -40,18 +40,23 @@ public class AdminRepositoryImpl implements AdminRepository{
     @Override
     public AdminDTO save(AdminDTO adminDTO) {
         if (adminDTO.getId() == null || adminDTO.getId() == 0) {
+            System.out.println(adminDTO.getId());
             Admin admin = adminMapper.toEntity(adminDTO);
             Admin savedAdmin = adminCrudRepository.save(admin);
             return adminMapper.toDto(savedAdmin);
         }
-        throw new RuntimeException();
+        throw new IllegalArgumentException("Admin no válido");
         
     }
 
     @Override
     public AdminDTO update(AdminDTO adminDTO) {
-        // TODO Auto-generated method stub
-        return null;
+        Admin admin = adminMapper.toEntity(adminDTO);
+        if (existsById(admin.getAdminId())) {
+            Admin updatedAdmin = adminCrudRepository.save(admin);
+            return adminMapper.toDto(updatedAdmin);
+        }
+        throw new IllegalArgumentException("El registro no existe");
     }
 
     @Override
@@ -60,15 +65,17 @@ public class AdminRepositoryImpl implements AdminRepository{
     }
 
     @Override
-    public void delete(Long id) {
-        // TODO Auto-generated method stub
-        
+    public boolean delete(Long id) {
+        if (existsById(id)) {
+            adminCrudRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public long count() {
-        // TODO Auto-generated method stub
-        return 0;
+        return adminCrudRepository.count();
     }
-
 }

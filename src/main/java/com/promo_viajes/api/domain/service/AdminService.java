@@ -33,8 +33,8 @@ public class AdminService {
     }
 
     // Eliminar un registro
-    public void delete(Long id) {
-        adminRepository.delete(id);
+    public boolean delete(Long id) {
+        return adminRepository.delete(id);
     }
 
     // Validar si existe por ID

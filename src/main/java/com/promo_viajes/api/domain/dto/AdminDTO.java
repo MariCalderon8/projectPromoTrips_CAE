@@ -29,10 +29,11 @@ public class AdminDTO {
         this.phone = phone;
     }
 
-    public AdminDTO(String name, String password, String document, String address, String phone) {
+    public AdminDTO(String name, String password, String document, String email, String address, String phone) {
         this.name = name;
         this.password = password;
         this.document = document;
+        this.email = email;
         this.address = address;
         this.phone = phone;
     }
