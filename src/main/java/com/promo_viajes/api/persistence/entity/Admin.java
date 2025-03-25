@@ -25,6 +25,8 @@ public class Admin {
 
     private String documento;
 
+    private String correo;
+
     private String direccion;
 
     private String telefono;

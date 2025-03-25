@@ -15,6 +15,7 @@ public interface AdminMapper {
     @Mapping(source = "nombre", target = "name")
     @Mapping(source = "contrasena", target = "password")
     @Mapping(source = "documento", target = "document")
+    @Mapping(source = "correo", target = "email")
     @Mapping(source = "direccion", target = "address")
     @Mapping(source = "telefono", target = "phone")
     AdminDTO toDto(Admin admin);
