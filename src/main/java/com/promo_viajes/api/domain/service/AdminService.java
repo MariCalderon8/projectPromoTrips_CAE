@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
+
 @Service
 public class AdminService {    
     
@@ -24,12 +26,20 @@ public class AdminService {
 
     // Guardar un registro
     public AdminDTO save(AdminDTO adminDTO) {
-        return adminRepository.save(adminDTO);
+        if(isValidEmail(adminDTO.getEmail())) {
+            return adminRepository.save(adminDTO);
+        } else {
+            throw new RuntimeException("El email no es valido");
+        }
     }
 
     // Actualizar un registro
     public AdminDTO update(AdminDTO adminDTO) {
-        return adminRepository.update(adminDTO);
+        if(isValidEmail(adminDTO.getEmail())) {
+            return adminRepository.update(adminDTO);
+        } else {
+            throw new RuntimeException("El email no es valido");
+        }
     }
 
     // Eliminar un registro
@@ -45,5 +55,16 @@ public class AdminService {
     // Contar todos los registros
     public long count() {
         return adminRepository.count();
+    }
+
+    // Validar correo electronico
+    public static boolean isValidEmail(String email) {
+        final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
+
+        if (email == null || email.isEmpty()) {
+            return false;
+        }
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 }
