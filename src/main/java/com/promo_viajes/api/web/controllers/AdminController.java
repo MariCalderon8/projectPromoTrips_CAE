@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admins")
+@RequestMapping("/admin")
 public class AdminController {
     
     @Autowired
@@ -48,7 +48,7 @@ public class AdminController {
     // Crear un nuevo admin
     @Operation(summary = "Guardar nuevo admin", description = "Guarda un nuevo admin en el sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Admin cread exitosamente"),
+            @ApiResponse(responseCode = "201", description = "Admin creado exitosamente"),
             @ApiResponse(responseCode = "400", description = "Error al crear el admin")
     })
     @PostMapping("/save")
