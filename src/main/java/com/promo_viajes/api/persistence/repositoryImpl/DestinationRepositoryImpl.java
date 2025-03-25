@@ -3,10 +3,14 @@ package com.promo_viajes.api.persistence.repositoryImpl;
 import com.promo_viajes.api.domain.dto.DestinationDTO;
 import com.promo_viajes.api.domain.repository.DestinationRepository;
 import com.promo_viajes.api.persistence.crud.DestinationCrudRepository;
+import com.promo_viajes.api.persistence.entity.Destino;
+import com.promo_viajes.api.persistence.mapper.DestinationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class DestinationRepositoryImpl implements DestinationRepository {
@@ -14,38 +18,58 @@ public class DestinationRepositoryImpl implements DestinationRepository {
     @Autowired
     private DestinationCrudRepository destinationCrudRepository;
 
+    @Autowired
+    private DestinationMapper destinationMapper;
+
     @Override
     public Iterable<DestinationDTO> findAll() {
-        return null;
+        Iterable<Destino> destinations = destinationCrudRepository.findAll();
+
+        return ((List<Destino>) destinations).stream()
+                .map(destinationMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<DestinationDTO> findById(Long id) {
-        return Optional.empty();
+        Optional<Destino> destination = destinationCrudRepository.findById(id);
+        return destination.map(destinationMapper::toDto);
     }
 
     @Override
     public DestinationDTO save(DestinationDTO destinationDTO) {
-        return null;
+        Destino destination = destinationMapper.toEntity(destinationDTO);
+        Destino savedDestination = destinationCrudRepository.save(destination);
+        return destinationMapper.toDto(savedDestination);
     }
 
     @Override
     public DestinationDTO update(DestinationDTO destinationDTO) {
-        return null;
-    }
-
-    @Override
-    public boolean delete(Long id) {
-        return false;
+        Destino destination = destinationMapper.toEntity(destinationDTO);
+        if(existsById(destination.getDestinoId())){
+            Destino updatedDestination = destinationCrudRepository.save(destination);
+            return destinationMapper.toDto(updatedDestination);
+        }
+        throw new IllegalArgumentException("El registro no existe");
     }
 
     @Override
     public boolean existsById(Long id) {
-        return false;
+        return destinationCrudRepository.existsById(id);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        if(existsById(id)){
+            destinationCrudRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public Long count() {
-        return 0L;
+        return destinationCrudRepository.count();
     }
 }

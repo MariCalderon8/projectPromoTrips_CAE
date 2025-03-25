@@ -40,7 +40,6 @@ public class AdminRepositoryImpl implements AdminRepository{
     @Override
     public AdminDTO save(AdminDTO adminDTO) {
         if (adminDTO.getId() == null || adminDTO.getId() == 0) {
-            System.out.println(adminDTO.getId());
             Admin admin = adminMapper.toEntity(adminDTO);
             Admin savedAdmin = adminCrudRepository.save(admin);
             return adminMapper.toDto(savedAdmin);
