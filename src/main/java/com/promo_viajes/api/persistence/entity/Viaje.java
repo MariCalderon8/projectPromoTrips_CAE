@@ -40,6 +40,6 @@ public class Viaje {
     )
     private List<Destino> destinos;
 
-    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "viaje")
     private List<Promocion> promociones;
 }

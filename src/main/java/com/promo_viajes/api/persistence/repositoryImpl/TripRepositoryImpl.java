@@ -51,7 +51,7 @@ public class TripRepositoryImpl implements TripRepository {
     @Override
     public TripDTO update(TripDTO tripDTO) {
         Viaje trip = tripMapper.toEntity(tripDTO);
-        if(existsById(trip.getTripId())) {
+        if(existsById(trip.getViajeId())) {
             Viaje updatedTrip = tripCrudRepository.save(trip);
             return tripMapper.toDto(updatedTrip);
         }

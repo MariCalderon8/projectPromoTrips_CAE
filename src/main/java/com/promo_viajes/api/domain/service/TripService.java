@@ -44,7 +44,7 @@ public class TripService {
     }
 
     // Consultar viajes en un fecha especifica
-    Iterable<TripDTO> findTripsByDate(LocalDate date) {
+    public Iterable<TripDTO> findTripsByDate(LocalDate date) {
         return tripRepository.findTripsByDate(date);
     }
 

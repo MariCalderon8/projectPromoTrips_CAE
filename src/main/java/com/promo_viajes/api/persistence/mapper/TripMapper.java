@@ -12,7 +12,7 @@ public interface TripMapper {
     @Mapping(source = "viajeId", target = "id")
     @Mapping(source = "nombre", target = "name")
     @Mapping(source = "precio", target = "price")
-    @Mapping(source = "diasDuracion", target = "daysDuration")
+    @Mapping(source = "diasDuracion", target = "durationDays")
     @Mapping(source = "fecha", target = "date")
     @Mapping(source = "descripcion", target = "description")
     TripDTO toDto(Viaje viaje);
