@@ -8,11 +8,11 @@ import org.springframework.data.repository.query.Param;
 public interface PromotionCrudRepository extends CrudRepository<Promocion, Long>{
 
     // Consultar todas las promociones activas
-    @Query(value = "SELECT * FROM promocion WHERE fecha_inicio >= CURDATE() AND fecha_fin <= CURDATE()", nativeQuery = true)
+    @Query(value = "SELECT * FROM promocion WHERE fecha_inicio <= CURDATE() AND fecha_fin >= CURDATE()", nativeQuery = true)
     Iterable<Promocion> findAllActivesPromotions();
 
     // Counsultar todas la promociones por un viaje
-    @Query(value = "SELECT * FROM promocion WHERE viaje_id = :idViaje", nativeQuery = true)
+    @Query(value = "SELECT * FROM promocion WHERE id_viaje = :idViaje", nativeQuery = true)
     Iterable<Promocion> findAllPromotionsByTrip(Long idViaje);
 
     @Query(value = "SELECT v.precio * (1 - (p.porcentaje_descuento / 100)) " +
