@@ -25,7 +25,7 @@ public interface PromotionRepository {
     boolean existsById(Long id);
 
     // Calcular el valor del viaje con descuento
-    float calcuteTripUpdatedPrice(Long tripId);
+    float calcuteTripUpdatedPrice(Long tripId, Long promotionId);
 
     // Consultar todas las promociones activas
     Iterable<PromotionDTO> findAllActivesPromotions();
