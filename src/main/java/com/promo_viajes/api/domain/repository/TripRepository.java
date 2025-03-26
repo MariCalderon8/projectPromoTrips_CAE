@@ -3,6 +3,7 @@ package com.promo_viajes.api.domain.repository;
 
 import com.promo_viajes.api.domain.dto.TripDTO;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public interface TripRepository {
@@ -28,7 +29,7 @@ public interface TripRepository {
     Iterable<TripDTO> findTripsByPriceOrLower(float price);
 
     // Consultar viajes en un fecha especifica
-    Iterable<TripDTO> findTripsByDate(float price);
+    Iterable<TripDTO> findTripsByDate(LocalDate date);
 
     // Contar todos los registros
     long count();
