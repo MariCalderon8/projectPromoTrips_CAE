@@ -19,18 +19,18 @@ public class PromotionDTO {
     private int tripId;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String condiciones;
-    private String descripcion;
+    private String conditions;
+    private String description;
 
-    public PromotionDTO(Long id, int createdBy, float discount, int tripId, LocalDate startDate, LocalDate endDate, String condiciones, String descripcion) {
+    public PromotionDTO(Long id, int createdBy, float discount, int tripId, LocalDate startDate, LocalDate endDate, String conditions, String description) {
         this.id = id;
         this.createdBy = createdBy;
         this.discount = discount;
         this.tripId = tripId;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.condiciones = condiciones;
-        this.descripcion = descripcion;
+        this.conditions = conditions;
+        this.description = description;
     }
     
 }
