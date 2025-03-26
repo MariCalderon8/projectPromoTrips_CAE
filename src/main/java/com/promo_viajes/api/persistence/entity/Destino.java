@@ -22,9 +22,13 @@ public class Destino {
 
     private String nombre;
 
+    private String ciudad;
+
     private String pais;
 
     private String clima;
+
+    private String descripcion;
 
     @ManyToMany
     @JoinTable(

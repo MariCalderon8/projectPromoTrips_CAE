@@ -12,8 +12,10 @@ public interface DestinationMapper {
 
     @Mapping(source = "destinoId", target = "id")
     @Mapping(source = "nombre", target = "name")
+    @Mapping(source = "ciudad", target = "city")
     @Mapping(source = "pais", target = "country")
     @Mapping(source = "clima", target = "climate")
+    @Mapping(source = "descripcion", target = "description")
     DestinationDTO toDto(Destino destino);
 
     @InheritInverseConfiguration

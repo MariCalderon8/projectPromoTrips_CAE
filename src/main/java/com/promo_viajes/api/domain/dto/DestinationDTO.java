@@ -13,13 +13,17 @@ public class DestinationDTO {
     
     private Long id;
     private String name;
+    private String city;
     private String country;
     private String climate;
+    private String description;
 
-    public DestinationDTO(Long id, String name, String country, String climate) {
+    public DestinationDTO(Long id, String name, String city, String country, String climate, String description) {
         this.id = id;
         this.name = name;
+        this.city = city;
         this.country = country;
         this.climate = climate;
+        this.description = description;
     }
 }

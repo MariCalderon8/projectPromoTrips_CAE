@@ -38,9 +38,12 @@ public class DestinationRepositoryImpl implements DestinationRepository {
 
     @Override
     public DestinationDTO save(DestinationDTO destinationDTO) {
-        Destino destination = destinationMapper.toEntity(destinationDTO);
-        Destino savedDestination = destinationCrudRepository.save(destination);
-        return destinationMapper.toDto(savedDestination);
+        if (destinationDTO.getId() == null) {
+            Destino destination = destinationMapper.toEntity(destinationDTO);
+            Destino savedDestination = destinationCrudRepository.save(destination);
+            return destinationMapper.toDto(savedDestination);
+        }
+        throw new IllegalArgumentException("El registro no es valido");
     }
 
     @Override

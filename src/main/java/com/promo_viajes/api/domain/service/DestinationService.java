@@ -3,9 +3,11 @@ package com.promo_viajes.api.domain.service;
 import com.promo_viajes.api.domain.dto.DestinationDTO;
 import com.promo_viajes.api.domain.repository.DestinationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class DestinationService {
 
     @Autowired

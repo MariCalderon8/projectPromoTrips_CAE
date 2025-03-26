@@ -14,9 +14,11 @@ CREATE TABLE admin (
 
 CREATE TABLE destino (
 	id_destino INT AUTO_INCREMENT PRIMARY KEY,
-	nombre VARCHAR(50) NOT NULL,
+	nombre VARCHAR(100) NOT NULL,
+	ciudad VARCHAR(100) NOT NULL,
 	pais VARCHAR(30) NOT NULL,
-	clima VARCHAR(50) NOT NULL 
+	clima VARCHAR(50) NOT NULL,
+	descripcion TEXT
 );
 
 CREATE TABLE viaje (
