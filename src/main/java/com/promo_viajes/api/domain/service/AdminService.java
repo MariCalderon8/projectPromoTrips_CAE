@@ -26,20 +26,14 @@ public class AdminService {
 
     // Guardar un registro
     public AdminDTO save(AdminDTO adminDTO) {
-        if(isValidEmail(adminDTO.getEmail())) {
-            return adminRepository.save(adminDTO);
-        } else {
-            throw new RuntimeException("El email no es valido");
-        }
+        validateAdmin(adminDTO);
+        return adminRepository.save(adminDTO);
     }
 
     // Actualizar un registro
     public AdminDTO update(AdminDTO adminDTO) {
-        if(isValidEmail(adminDTO.getEmail())) {
-            return adminRepository.update(adminDTO);
-        } else {
-            throw new RuntimeException("El email no es valido");
-        }
+        validateAdminBeforeUpdate(adminDTO);
+        return adminRepository.update(adminDTO);
     }
 
     // Eliminar un registro
@@ -57,6 +51,8 @@ public class AdminService {
         return adminRepository.count();
     }
 
+    // Validaciones
+
     // Validar correo electronico
     public static boolean isValidEmail(String email) {
         final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
@@ -67,4 +63,31 @@ public class AdminService {
         }
         return EMAIL_PATTERN.matcher(email).matches();
     }
+
+    // Validar datos del administrador
+    private void validateAdmin(AdminDTO adminDTO) {
+        if (adminRepository.existsByCorreo(adminDTO.getEmail())) {
+            throw new IllegalArgumentException("El correo ya está registrado");
+        }
+        if (adminRepository.existByDocumento(adminDTO.getDocument())) {
+            throw new IllegalArgumentException("El documento ya está registrado");
+        }
+        if (!isValidEmail(adminDTO.getEmail())) {
+            throw new IllegalArgumentException("El email no es válido");
+        }
+    }
+
+    private void validateAdminBeforeUpdate(AdminDTO adminDTO) {
+        if(!existsById(adminDTO.getId())){
+            throw new IllegalArgumentException("El admin no se encuentra registrado");
+        }
+        AdminDTO existAdmin = findById(adminDTO.getId()).orElse(null);
+        if(!existAdmin.getEmail().equals(adminDTO.getEmail())) {
+            throw new IllegalArgumentException("No se puede modificar el correo");
+        }
+        if(!existAdmin.getDocument().equals(adminDTO.getDocument())){
+            throw new IllegalArgumentException("No se puede modificar el documento");
+        }
+    }
+
 }

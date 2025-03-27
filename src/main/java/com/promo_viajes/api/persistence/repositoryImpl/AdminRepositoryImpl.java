@@ -77,4 +77,14 @@ public class AdminRepositoryImpl implements AdminRepository{
     public long count() {
         return adminCrudRepository.count();
     }
+
+    @Override
+    public boolean existsByCorreo(String email) {
+        return adminCrudRepository.existsByCorreo(email);
+    }
+
+    @Override
+    public boolean existByDocumento(String document) {
+        return adminCrudRepository.existsByDocumento(document);
+    }
 }

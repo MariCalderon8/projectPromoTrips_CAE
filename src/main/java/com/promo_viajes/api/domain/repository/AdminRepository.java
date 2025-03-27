@@ -25,4 +25,10 @@ public interface AdminRepository {
 
     // Contar todos los registros
     long count();
+
+    // Validar si existe por correo
+    boolean existsByCorreo(String email);
+
+    // Validar si existe por documento
+    boolean existByDocumento(String document);
 }

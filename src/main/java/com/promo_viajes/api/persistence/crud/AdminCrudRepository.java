@@ -4,4 +4,9 @@ import com.promo_viajes.api.persistence.entity.Admin;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AdminCrudRepository extends CrudRepository<Admin, Long>{
+
+    boolean existsByCorreo(String correo);
+
+    boolean existsByDocumento(String documento);
+
 }
