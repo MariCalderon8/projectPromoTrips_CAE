@@ -24,6 +24,13 @@ public class Viaje {
 
     private String nombre;
 
+    @Column(name = "lugar_salida")
+    private String lugarSalida;
+
+    @ManyToOne
+    @JoinColumn (name = "id_destino", nullable = false)
+    private Destino destino;
+
     private float precio;
 
     @Column(name = "dias_duracion")
@@ -32,14 +39,6 @@ public class Viaje {
     private LocalDate fecha;
 
     private String descripcion;
-
-    @ManyToMany
-    @JoinTable(
-        name = "viaje_destino",
-        joinColumns = @JoinColumn(name = "id_viaje"),
-        inverseJoinColumns = @JoinColumn(name = "id_destino")
-    )
-    private List<Destino> destinos = new ArrayList<>();
 
     @OneToMany(mappedBy = "viaje")
     private List<Promocion> promociones;

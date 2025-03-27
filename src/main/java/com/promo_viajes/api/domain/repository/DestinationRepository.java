@@ -28,7 +28,4 @@ public interface DestinationRepository {
     // Contar todos los destinos
     Long count();
 
-    //Encontrar todos los destinos de un viaje
-    List<DestinationDTO> findAllDestinationsByTrip(Long tripId);
-
 }

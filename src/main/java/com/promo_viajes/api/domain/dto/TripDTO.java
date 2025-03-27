@@ -15,14 +15,18 @@ public class TripDTO {
     
     private Long id;
     private String name;
+    private String departureLocation;
+    private Long destinationId;
     private float price;
     private int durationDays;
     private LocalDate date;
     private String description;
 
-    public TripDTO(Long id, String name, float price, int durationDays, LocalDate date, String description) {
+    public TripDTO(Long id, String name, String departureLocation, Long destinationId, float price, int durationDays, LocalDate date, String description) {
         this.id = id;
         this.name = name;
+        this.departureLocation = departureLocation;
+        this.destinationId = destinationId;
         this.price = price;
         this.durationDays = durationDays;
         this.date = date;

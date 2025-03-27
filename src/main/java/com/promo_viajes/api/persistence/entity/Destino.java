@@ -30,11 +30,5 @@ public class Destino {
 
     private String descripcion;
 
-    @ManyToMany
-    @JoinTable(
-        name = "viaje_destino",
-        joinColumns = @JoinColumn(name = "id_destino"),
-        inverseJoinColumns = @JoinColumn(name = "id_viaje")
-    )
-    private List<Viaje> viajes;
-}
+    @OneToMany(mappedBy = "destino")
+    private List<Viaje> viajes;}

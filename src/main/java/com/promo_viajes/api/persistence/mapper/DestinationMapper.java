@@ -19,6 +19,6 @@ public interface DestinationMapper {
     DestinationDTO toDto(Destino destino);
 
     @InheritInverseConfiguration
-    @Mapping(target = "viajes", ignore = true) // Ignorar para evitar ciclos
+    @Mapping(target = "viajes", ignore = true)
     Destino toEntity(DestinationDTO destinationDTO);
 }

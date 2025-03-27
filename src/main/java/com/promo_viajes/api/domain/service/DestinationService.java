@@ -42,7 +42,4 @@ public class DestinationService {
         return  destinationRepository.count();
     }
 
-    public List<DestinationDTO> findAllDestinationsByTrip(Long tripId){
-        return destinationRepository.findAllDestinationsByTrip(tripId);
-    }
 }
