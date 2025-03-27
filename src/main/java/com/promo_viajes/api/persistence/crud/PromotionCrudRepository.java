@@ -15,10 +15,10 @@ public interface PromotionCrudRepository extends CrudRepository<Promocion, Long>
     @Query(value = "SELECT * FROM promocion WHERE id_viaje = :idViaje", nativeQuery = true)
     Iterable<Promocion> findAllPromotionsByTrip(Long idViaje);
 
-    @Query(value = "SELECT v.precio * (1 - (p.porcentaje_descuento / 100)) " +
+    @Query(value = "SELECT v.precio * (1.00 - (p.porcentaje_descuento / 100.00)) " +
             "FROM viaje v " +
             "JOIN promocion p ON v.id_viaje = p.id_viaje " +
-            "WHERE v.id_viaje = :idViaje AND p.id_promocion = :idPromocion",
+            "WHERE v.id_viaje = :idViaje AND p.id_promo = :idPromocion",
             nativeQuery = true)
     float calculatePriceWithDiscount(@Param("idViaje") Long idViaje, @Param("idPromocion") Long idPromocion);
 

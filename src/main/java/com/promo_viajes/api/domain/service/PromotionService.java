@@ -5,6 +5,8 @@ import com.promo_viajes.api.domain.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,11 +16,23 @@ public class PromotionService {
     private PromotionRepository promotionRepository;
 
     public Iterable<PromotionDTO> findAll(){
-        return promotionRepository.findAll();
+        Iterable<PromotionDTO> promotions = promotionRepository.findAll();
+        List<PromotionDTO> updatedPromotions = new ArrayList<>();
+
+        for (PromotionDTO promo : promotions) {
+            float updatedPrice = calculateUpdatedTripPrice(promo.getTripId(), promo.getId());
+            promo.setTripFinalPrice(updatedPrice);
+            updatedPromotions.add(promo);
+        }
+        return updatedPromotions;
     }
 
     public Optional<PromotionDTO> findById(Long id) {
-        return promotionRepository.findById(id);
+        return promotionRepository.findById(id)
+                .map(promotionDTO -> {
+                    promotionDTO.setTripFinalPrice(calculateUpdatedTripPrice(promotionDTO.getTripId(), promotionDTO.getId()));
+                    return promotionDTO;
+                });
     }
 
     public PromotionDTO save(PromotionDTO promotionDTO){
@@ -34,11 +48,27 @@ public class PromotionService {
     }
 
     public Iterable<PromotionDTO> findAllActivesPromotions(){
-        return promotionRepository.findAllActivesPromotions();
+        Iterable<PromotionDTO> promotions = promotionRepository.findAllActivesPromotions();
+        List<PromotionDTO> activePromotions = new ArrayList<>();
+
+        for (PromotionDTO promo : promotions) {
+            float updatedPrice = calculateUpdatedTripPrice(promo.getTripId(), promo.getId());
+            promo.setTripFinalPrice(updatedPrice);
+            activePromotions.add(promo);
+        }
+        return activePromotions;
     }
 
     public Iterable<PromotionDTO> findAllPromotionsByTrip(Long tripId){
-        return promotionRepository.findAllPromotionsByTrip(tripId);
+        Iterable<PromotionDTO> promotions = promotionRepository.findAllPromotionsByTrip(tripId);
+        List<PromotionDTO> promosByTrip = new ArrayList<>();
+
+        for (PromotionDTO promo : promotions) {
+            float updatedPrice = calculateUpdatedTripPrice(promo.getTripId(), promo.getId());
+            promo.setTripFinalPrice(updatedPrice);
+            promosByTrip.add(promo);
+        }
+        return promosByTrip;
     }
 
     public boolean delete(Long id){
