@@ -93,4 +93,16 @@ public class DestinationController {
         long count = destinationService.count();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
+
+    // Consultar todos los destinos de un viaje
+    @Operation(summary = "Obtener todos los destinos de un viaje", description = "Retorna una lista de todos los destinos de un viaje registrados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de destinos obtenida exitosamente"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    @GetMapping("/destinations-by-trip/{tripId}")
+    public ResponseEntity<Iterable<DestinationDTO>> getAllDestinationsByTrip(@PathVariable Long tripId) {
+        Iterable<DestinationDTO> destinations = destinationService.findAllDestinationsByTrip(tripId);
+        return new ResponseEntity<>(destinations, HttpStatus.OK);
+    }
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -38,7 +39,7 @@ public class Viaje {
         joinColumns = @JoinColumn(name = "id_viaje"),
         inverseJoinColumns = @JoinColumn(name = "id_destino")
     )
-    private List<Destino> destinos;
+    private List<Destino> destinos = new ArrayList<>();
 
     @OneToMany(mappedBy = "viaje")
     private List<Promocion> promociones;

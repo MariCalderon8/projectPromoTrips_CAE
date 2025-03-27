@@ -1,9 +1,11 @@
 package com.promo_viajes.api.persistence.repositoryImpl;
 
+import com.promo_viajes.api.domain.dto.DestinationDTO;
 import com.promo_viajes.api.domain.dto.TripDTO;
 import com.promo_viajes.api.domain.repository.TripRepository;
 import com.promo_viajes.api.persistence.crud.TripCrudRepository;
 import com.promo_viajes.api.persistence.entity.Viaje;
+import com.promo_viajes.api.persistence.mapper.DestinationMapper;
 import com.promo_viajes.api.persistence.mapper.TripMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,9 @@ public class TripRepositoryImpl implements TripRepository {
 
     @Autowired
     private TripMapper tripMapper;
+
+    @Autowired
+    private DestinationMapper destinationMapper;
 
     @Override
     public Iterable<TripDTO> findAll() {
@@ -95,4 +100,15 @@ public class TripRepositoryImpl implements TripRepository {
     public long count() {
         return tripCrudRepository.count();
     }
+
+//    @Override
+//    public boolean addNewDestination(Long tripId, Long destinationId) {
+//        int modifiedRows = tripCrudRepository.addNewDestination(tripId, destinationId);
+//        return modifiedRows != 0;
+//    }
+//
+//    @Override
+//    public boolean removeDestination(Long tripId, Long destinationId) {
+//        return false;
+//    }
 }

@@ -1,6 +1,7 @@
 package com.promo_viajes.api.domain.repository;
 
 
+import com.promo_viajes.api.domain.dto.DestinationDTO;
 import com.promo_viajes.api.domain.dto.TripDTO;
 
 import java.time.LocalDate;
@@ -33,4 +34,10 @@ public interface TripRepository {
 
     // Contar todos los registros
     long count();
+
+//    // Agrega un nuevo destino
+//    boolean addNewDestination(Long tripId, Long destinationId);
+//
+//    // Elimina un destino
+//    boolean removeDestination(Long tripId, Long destinationId);
 }

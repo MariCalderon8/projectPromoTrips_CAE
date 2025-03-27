@@ -41,7 +41,7 @@ CREATE TABLE viaje_destino (
 CREATE TABLE promocion (
 	id_promo INT AUTO_INCREMENT PRIMARY KEY,
 	creado_por INT NOT NULL,
-	porcentaje_descuento DECIMAL(3,2) NOT NULL,
+	porcentaje_descuento DECIMAL(5,2) NOT NULL,
 	id_viaje INT NOT NULL,
 	fecha_inicio DATETIME NOT NULL,
 	fecha_fin DATETIME NOT NULL,

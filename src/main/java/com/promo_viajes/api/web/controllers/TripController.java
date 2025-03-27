@@ -118,4 +118,20 @@ public class TripController {
         long count = tripService.count();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
+//
+//    // Asociar un destino con un viaje
+//    @Operation(summary = "Asociar un destino con un viaje", description = "Asociar un destino con un viaje en el sistema")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "201", description = "Destino agregado exitosamente"),
+//            @ApiResponse(responseCode = "400", description = "Error al asociar el destino")
+//    })
+//    @PostMapping("/add-new-destination")
+//    public ResponseEntity<String> createViaje(@RequestParam Long trip, @RequestParam Long destination) {
+//        boolean created = tripService.addNewDestination(trip, destination);
+//        if (created) {
+//            return ResponseEntity.ok("Destino agregado exitosamente");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: No se pudo agregar el destino");
+//        }
+//    }
 }

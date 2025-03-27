@@ -2,6 +2,7 @@ package com.promo_viajes.api.domain.repository;
 
 import com.promo_viajes.api.domain.dto.DestinationDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface DestinationRepository {
@@ -26,5 +27,8 @@ public interface DestinationRepository {
 
     // Contar todos los destinos
     Long count();
+
+    //Encontrar todos los destinos de un viaje
+    List<DestinationDTO> findAllDestinationsByTrip(Long tripId);
 
 }

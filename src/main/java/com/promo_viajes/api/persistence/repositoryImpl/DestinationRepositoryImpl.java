@@ -75,4 +75,11 @@ public class DestinationRepositoryImpl implements DestinationRepository {
     public Long count() {
         return destinationCrudRepository.count();
     }
+
+    @Override
+    public List<DestinationDTO> findAllDestinationsByTrip(Long tripId) {
+        return destinationCrudRepository.findAllDestinationsByTrip(tripId).stream()
+                .map(destinationMapper::toDto)
+                .collect(Collectors.toList());
+    }
 }
