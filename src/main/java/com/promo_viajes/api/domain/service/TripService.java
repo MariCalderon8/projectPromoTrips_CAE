@@ -28,10 +28,14 @@ public class TripService {
     }
 
     public TripDTO save(TripDTO tripDTO){
+        validateTripData(tripDTO);
         return tripRepository.save(tripDTO);
     }
 
     public TripDTO update(TripDTO tripDTO) {
+        if(tripDTO.getPrice() <= 0){
+            throw new IllegalArgumentException("El precio no es válido");
+        }
         return tripRepository.update(tripDTO);
     }
 
@@ -57,33 +61,17 @@ public class TripService {
         return  tripRepository.count();
     }
 
-//    public boolean addNewDestination(Long tripId, Long destinationId) {
-//
-//        if(existsById(tripId) && destinationService.existsById(destinationId)){
-//            if (validateDestinationInTrip(tripId, destinationId)){
-//                throw new IllegalArgumentException("El destino ya existe dentro del viaje");
-//            }
-//
-//            return tripRepository.addNewDestination(tripId, destinationId);
-//        }
-//        throw new IllegalArgumentException("No existe el viaje o el destino");
-//    }
-//
-//    public boolean removeDestination(Long tripId, Long destinationId) {
-//        if(existsById(tripId) && destinationService.existsById(destinationId)){
-//
-//            if (validateDestinationInTrip(tripId, destinationId)){
-//                throw new IllegalArgumentException("El destino ya existe dentro del viaje");
-//            }
-//
-//            return tripRepository.removeDestination(tripId, destinationId);
-//        }
-//        throw new IllegalArgumentException("No existe el viaje o el destino");
-//
-//    }
-//
-//    public boolean validateDestinationInTrip(Long tripId, Long destinationId) {
-//        List<DestinationDTO> destinations = destinationService.findAllDestinationsByTrip(tripId);
-//        return destinations.stream().anyMatch(d -> d.getId().equals(destinationId));
-//    }
+    void validateTripData(TripDTO tripDTO) {
+        LocalDate today = LocalDate.now();
+        if(tripDTO.getDate() == null || tripDTO.getDate().isBefore(today)) {
+            throw new IllegalArgumentException("La fecha no es válida. La fecha no puede estar vacía o ser antes de hoy");
+        }
+        if(tripDTO.getPrice() <= 0){
+            throw new IllegalArgumentException("El precio no es válido");
+        }
+        if(!destinationService.existsById(tripDTO.getDestinationId())) {
+            throw new IllegalArgumentException("El destino no existe");
+        }
+    }
+
 }
