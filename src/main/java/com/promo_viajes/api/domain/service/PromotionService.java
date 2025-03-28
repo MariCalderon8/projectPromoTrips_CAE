@@ -5,6 +5,7 @@ import com.promo_viajes.api.domain.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,12 @@ public class PromotionService {
 
     @Autowired
     private PromotionRepository promotionRepository;
+
+    @Autowired
+    private AdminService adminService;
+
+    @Autowired
+    private TripService tripService;
 
     public Iterable<PromotionDTO> findAll(){
         Iterable<PromotionDTO> promotions = promotionRepository.findAll();
@@ -36,10 +43,12 @@ public class PromotionService {
     }
 
     public PromotionDTO save(PromotionDTO promotionDTO){
+        validatePromotionData(promotionDTO);
         return promotionRepository.save(promotionDTO);
     }
 
     public PromotionDTO update(PromotionDTO promotionDTO) {
+        validatePromotionData(promotionDTO);
         return promotionRepository.update(promotionDTO);
     }
 
@@ -82,4 +91,33 @@ public class PromotionService {
     public long count() {
         return  promotionRepository.count();
     }
+
+    // Valiidaciones
+
+    public void validatePromotionData(PromotionDTO promotionDTO) {
+        if(!adminService.existsById(promotionDTO.getCreatedBy())) {
+            throw new IllegalArgumentException("El administrador no existe");
+        }
+        if (!tripService.existsById(promotionDTO.getTripId())) {
+            throw new IllegalArgumentException("El viaje no exite");
+        }
+        if (!isValidDateRange(promotionDTO.getStartDate(), promotionDTO.getEndDate())) {
+            throw new IllegalArgumentException("El rango de fechas no es válido");
+        }
+        if (!isDiscountValid(promotionDTO.getDiscount())){
+            throw new IllegalArgumentException("El valor del descuento no es válido");
+        }
+    }
+
+    public boolean isValidDateRange(LocalDate startDate, LocalDate endDate) {
+        LocalDate today = LocalDate.now();
+        return startDate != null && endDate != null
+                && !startDate.isBefore(today)
+                && startDate.isBefore(endDate);
+    }
+
+    public boolean isDiscountValid(float discount) {
+        return discount > 0 && discount <= 100.00;
+    }
+
 }
