@@ -35,7 +35,9 @@ public class DestinationController {
     @Operation(summary = "Obtener destino por ID", description = "Retorna el destino correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Destino encontrado"),
-            @ApiResponse(responseCode = "404", description = "Destino no encontrado")
+            @ApiResponse(responseCode = "404", description = "Destino no encontrado"),
+            @ApiResponse(responseCode = "400", description = "Error en la petición"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/{id}")
     public ResponseEntity<DestinationDTO> getDestinationnById(@PathVariable Long id) {
@@ -47,7 +49,8 @@ public class DestinationController {
     @Operation(summary = "Guardar nuevo destino", description = "Guarda un nuevo destino en el sistema")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Destino creado exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Error al crear el destino")
+            @ApiResponse(responseCode = "400", description = "Error al crear el destino"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/save")
     public ResponseEntity<DestinationDTO> createDestination(@RequestBody DestinationDTO destinationDTO) {
@@ -60,7 +63,8 @@ public class DestinationController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Destino actualizado exitosamente"),
             @ApiResponse(responseCode = "400", description = "Error al actualizar el Destino"),
-            @ApiResponse(responseCode = "404", description = "Destino no encontrado")
+            @ApiResponse(responseCode = "404", description = "Destino no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PutMapping("/update/{id}")
     public ResponseEntity<DestinationDTO> updateDestination(@PathVariable Long id, @RequestBody DestinationDTO destinationDTO) {
@@ -73,7 +77,8 @@ public class DestinationController {
     @Operation(summary = "Eliminar destino", description = "Elimina el destino correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Destino eliminado exitosamente"),
-            @ApiResponse(responseCode = "404", description = "Destino no encontrado")
+            @ApiResponse(responseCode = "404", description = "Destino no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDestination(@PathVariable Long id) {

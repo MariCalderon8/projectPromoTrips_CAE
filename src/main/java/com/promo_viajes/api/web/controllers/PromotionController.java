@@ -35,7 +35,8 @@ public class PromotionController {
     @Operation(summary = "Obtener promociones por ID", description = "Retorna la promocion correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Promocion encontrada"),
-            @ApiResponse(responseCode = "404", description = "Promocion no encontrada")
+            @ApiResponse(responseCode = "404", description = "Promocion no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/{id}")
     public ResponseEntity<PromotionDTO> getPromotionById(@PathVariable Long id) {
@@ -47,7 +48,8 @@ public class PromotionController {
     @Operation(summary = "Guardar nueva promocion", description = "Guarda una nueva promocion en el sistema")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Promocion creada exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Error al crear la promocion")
+            @ApiResponse(responseCode = "400", description = "Error al crear la promocion"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/save")
     public ResponseEntity<PromotionDTO> createPromotion(@RequestBody PromotionDTO promotionDTO) {
@@ -60,7 +62,8 @@ public class PromotionController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Promocion actualizada exitosamente"),
             @ApiResponse(responseCode = "400", description = "Error al actualizar la promocion"),
-            @ApiResponse(responseCode = "404", description = "Promocion no encontrado")
+            @ApiResponse(responseCode = "404", description = "Promocion no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PutMapping("/update/{id}")
     public ResponseEntity<PromotionDTO> updatePromotion(@PathVariable Long id, @RequestBody PromotionDTO promotionDTO) {
@@ -73,7 +76,8 @@ public class PromotionController {
     @Operation(summary = "Eliminar promocion", description = "Elimina la promocion correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Promocion eliminada exitosamente"),
-            @ApiResponse(responseCode = "404", description = "Promocion no encontrada")
+            @ApiResponse(responseCode = "404", description = "Promocion no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePromocion(@PathVariable Long id) {

@@ -38,7 +38,10 @@ public class AdminController {
     @Operation(summary = "Obtener administrador por ID", description = "Retorna el admin correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Administrador encontrada"),
-            @ApiResponse(responseCode = "404", description = "Administrador no encontrada")
+            @ApiResponse(responseCode = "404", description = "Administrador no encontrada"),
+            @ApiResponse(responseCode = "400", description = "Error en la petición"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+
     })
     @GetMapping("/{id}")
     public ResponseEntity<AdminDTO> getAdminById(@PathVariable Long id) {
@@ -50,7 +53,8 @@ public class AdminController {
     @Operation(summary = "Guardar nuevo admin", description = "Guarda un nuevo admin en el sistema")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Admin creado exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Error al crear el admin")
+            @ApiResponse(responseCode = "400", description = "Error al crear el admin"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/save")
     public ResponseEntity<AdminDTO> createAdmin(@RequestBody AdminDTO adminDTO) {
@@ -63,7 +67,9 @@ public class AdminController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Admin actualizado exitosamente"),
             @ApiResponse(responseCode = "400", description = "Error al actualizar el Admin"),
-            @ApiResponse(responseCode = "404", description = "Admin no encontrado")
+            @ApiResponse(responseCode = "404", description = "Admin no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+
     })
     @PutMapping("/update/{id}")
     public ResponseEntity<AdminDTO> updateAdmin(@PathVariable Long id, @RequestBody AdminDTO adminDTO) {
@@ -76,7 +82,8 @@ public class AdminController {
     @Operation(summary = "Eliminar admin", description = "Elimina el admin correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Admin eliminado exitosamente"),
-            @ApiResponse(responseCode = "404", description = "Admin no encontrado")
+            @ApiResponse(responseCode = "404", description = "Admin no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteAdmin(@PathVariable Long id) {

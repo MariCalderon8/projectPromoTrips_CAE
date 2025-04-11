@@ -36,7 +36,9 @@ public class TripController {
     @Operation(summary = "Obtener viaje por ID", description = "Retorna el viaje correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Viaje encontrada"),
-            @ApiResponse(responseCode = "404", description = "Viaje no encontrada")
+            @ApiResponse(responseCode = "400", description = "ID inválido o mal formado"),
+            @ApiResponse(responseCode = "404", description = "Viaje no encontrada"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/{id}")
     public ResponseEntity<TripDTO> getViajeById(@PathVariable Long id) {
@@ -48,7 +50,8 @@ public class TripController {
     @Operation(summary = "Guardar nuevo viaje", description = "Guarda un nuevo viaje en el sistema")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Viaje creado exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Error al crear el viaje")
+            @ApiResponse(responseCode = "400", description = "Error al crear el viaje"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PostMapping("/save")
     public ResponseEntity<TripDTO> createViaje(@RequestBody TripDTO tripDTO) {
@@ -60,8 +63,9 @@ public class TripController {
     @Operation(summary = "Actualizar viaje", description = "Actualiza los datos de un viaje existente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Viaje actualizado exitosamente"),
-            @ApiResponse(responseCode = "400", description = "Error al actualizar el Viaje"),
-            @ApiResponse(responseCode = "404", description = "Viaje no encontrado")
+            @ApiResponse(responseCode = "400", description = "Error al actualizar el Viaje - datos inválidos"),
+            @ApiResponse(responseCode = "404", description = "Viaje no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @PutMapping("/update/{id}")
     public ResponseEntity<TripDTO> updateTrip(@PathVariable Long id, @RequestBody TripDTO tripDTO) {
@@ -74,7 +78,8 @@ public class TripController {
     @Operation(summary = "Eliminar viaje", description = "Elimina el viaje correspondiente al ID proporcionado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Viaje eliminado exitosamente"),
-            @ApiResponse(responseCode = "404", description = "Viaje no encontrado")
+            @ApiResponse(responseCode = "404", description = "Viaje no encontrado"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTrip(@PathVariable Long id) {
@@ -90,6 +95,7 @@ public class TripController {
     @Operation(summary = "Obtener todas los viajes por precio", description = "Retorna una lista de todos los viajes registrados por un precio especifico o menor")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de viajes obtenida exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Parámetro de precio inválido"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/filter-by-price")
@@ -102,6 +108,7 @@ public class TripController {
     @Operation(summary = "Obtener todas los viajes por fecha", description = "Retorna una lista de todos los viajes registrados en una fecha especifica")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de viajes obtenida exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Parámetro de fecha inválido"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/filter-by-date")
@@ -112,7 +119,10 @@ public class TripController {
 
     // Contar el número total de viajes
     @Operation(summary = "Contar viajes", description = "Retorna el número total de viajes registrados")
-    @ApiResponse(responseCode = "200", description = "Número total de viajes")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Número total de viajes"),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     @GetMapping("/count")
     public ResponseEntity<Long> countViajes() {
         long count = tripService.count();
